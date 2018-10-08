@@ -26,15 +26,14 @@ router.post('/crm', (req,res)=>{
       res.status(400)
     }
   }crm.create({
-    date:req.body,
-    office:req.body,
-    goals:req.body,
-    outcome:req.body,
-    nextgoals:req.body
-  }).then(payload => {
-    res.status(200)
-    payload.serialize()
-  }).catch(error =>{
+    date:req.body.date,
+    office:req.body.office,
+    goals:req.body.goals,
+    outcome:req.body.outcome,
+    nextgoals:req.body.nextgoals
+  })
+  .then(payload => res.status(201).json(payload.serialize())
+  ).catch(error =>{
     console.log(error)
     res.status(500);
   })
