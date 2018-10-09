@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const cors = require('cors');
 mongoose.Promise = global.Promise
 
 const {DATABASE_URL,PORT} = require('./config');
@@ -12,15 +13,29 @@ const docPoint = require('./routers/doc-endpoint');
 
 const app = express();
 
+//My Middleware
 app.use(express.static('public'));
 app.use(express.json());
 app.use(morgan('common'));
+app.use(cors());
 
-
+//My Routers
 app.use('/api',routerPoint);
 app.use('/doc',docPoint);
 
 console.log('can you hear me server')
+
+
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers',"Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+    return res.send(204);
+  }
+  next();
+});
+
 
 //Starting my server
 
