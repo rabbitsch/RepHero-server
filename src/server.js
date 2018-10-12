@@ -20,7 +20,7 @@ app.use(morgan("common"));
 app.use(cors());
 
 //My Routers
-app.use("/api/visits", visitsRouter);
+app.use("/api", visitsRouter);
 app.use("/doc", docPoint);
 
 console.log("can you hear me server");
