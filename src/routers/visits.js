@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Visit = require("../models/visit");
 
 //Get endpoint
-router.get("/visit", (req, res) => {
+router.get("/visits", (req, res) => {
   Visit.find()
     .then(item => res.json(item.map(get => get.serialize())))
     .catch(error => {
@@ -13,7 +13,7 @@ router.get("/visit", (req, res) => {
 });
 
 //Post endpoint
-router.post("/visit", (req, res) => {
+router.post("/visits", (req, res) => {
   const keys = ["date", "office", "goals", "outcome", "nextgoals"];
   for (let i = 0; i < keys.length; i++) {
     const field = keys[i];
@@ -39,7 +39,7 @@ router.post("/visit", (req, res) => {
 });
 
 //Delete endpoint
-router.delete("/visit/:id", (req, res) => {
+router.delete("/visits/:id", (req, res) => {
   Visit.findByIdAndRemove(req.params.id)
     .then(() => {
       res.status(204).json({ message: "success" });
@@ -51,7 +51,7 @@ router.delete("/visit/:id", (req, res) => {
 });
 
 //Put endpoint
-router.put("/visit/:id", (req, res) => {
+router.put("/visits/:id", (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       error: "Request path id and request body id must match"

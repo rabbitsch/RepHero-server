@@ -10,6 +10,8 @@ const { DATABASE_URL, PORT } = require("./config");
 
 const docPoint = require("./routers/doc-endpoint");
 const visitsRouter = require("./routers/visits");
+const userRouter = require("./routers/user-router");
+const authRouter = require("./routers/auth-router");
 
 const app = express();
 
@@ -22,9 +24,12 @@ app.use(cors());
 //My Routers
 app.use("/api", visitsRouter);
 app.use("/doc", docPoint);
+app.use("/api/users", userRouter);
+app.use("/api", authRouter);
 
 console.log("can you hear me server");
 
+//CORS Middleware
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
