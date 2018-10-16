@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 
 const schema = mongoose.Schema({
+  user: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "User"
+  },
   date: { type: String },
   office: { type: String },
-  goals: { type: String },
-  outcome: { type: String },
-  nextgoals: { type: String }
+  goals: { type: [String] },
+  outcome: { type: [String] },
+  nextgoals: { type: [String] }
 });
 
 schema.methods.serialize = function() {

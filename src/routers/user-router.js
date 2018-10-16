@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { User } = require("../models/users-model");
+const { User } = require("../models/user-model");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRY } = require("../config");
