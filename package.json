@@ -2,24 +2,25 @@
   "name": "rephero-server",
   "version": "1.0.0",
   "description": "Server for RepHero",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
+  "author": "Kevin Schmitz",
+  "license": "ISC",
+  "scripts": {
+    "start": "src/server.js",
+    "test": "mocha"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.1",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.4"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "mocha",
-    "start": "src/server.js"
-  },
-  "author": "Kevin Schmitz",
-  "license": "ISC"
+    "nodemon": "^1.18.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  }
 }
