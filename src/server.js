@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
+const passport = require("passport");
 mongoose.Promise = global.Promise;
 
 const { DATABASE_URL, PORT } = require("./config");
@@ -12,14 +13,18 @@ const docPoint = require("./routers/doc-endpoint");
 const visitsRouter = require("./routers/visits");
 const userRouter = require("./routers/user-router");
 const authRouter = require("./routers/auth-router");
+const { localStrategy, jwtStrategy } = require("./auth/auth-strat");
 
 const app = express();
 
 //My Middleware
+
 app.use(express.static("public"));
 app.use(express.json());
 app.use(morgan("common"));
 app.use(cors());
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 //My Routers
 app.use("/api", visitsRouter);
@@ -42,6 +47,8 @@ app.use(function(req, res, next) {
   }
   next();
 });
+
+const jwtAuth = passport.authenticate("jwt", { session: false });
 
 //Starting my server
 
