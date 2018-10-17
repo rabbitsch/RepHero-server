@@ -8,8 +8,6 @@ const router = express.Router();
 
 router.use(bodyParser());
 
-console.log("can you hear me auth router!!");
-
 const createAuthToken = function(user) {
   console.log("hi! create Token");
   return jwt.sign({ user }, config.JWT_SECRET, {
@@ -23,6 +21,7 @@ const localAuth = passport.authenticate("local", { session: false });
 router.use(bodyParser.json());
 
 router.post("/login", localAuth, (req, res) => {
+  console.log(req.body, "hello login post, whats the deal man");
   const authToken = createAuthToken(req.user.serialize());
   res.json({ authToken });
 });

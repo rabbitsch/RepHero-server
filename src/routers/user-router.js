@@ -9,8 +9,6 @@ const jwtAuth = passport.authenticate("jwt", {
   failureRedirect: "/api/login"
 });
 
-console.log("can you hear me USER router!");
-
 const router = express.Router();
 
 const jsonParser = bodyParser.json();

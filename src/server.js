@@ -32,8 +32,6 @@ app.use("/doc", docPoint);
 app.use("/api/users", userRouter);
 app.use("/api", authRouter);
 
-console.log("can you hear me server");
-
 //CORS Middleware
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
