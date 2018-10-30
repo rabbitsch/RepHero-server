@@ -132,5 +132,141 @@ describe("preparing endpoints for tests", function() {
           respPost = res.body[0];
         });
     });
+
+    describe("testing POST endpoints", function(done) {
+      it("should add a new post", function() {
+        return Visit.findOne().then(host => {
+          const user1 = preAuthHost(host);
+
+          let authToken = createAuthToken(user1);
+          // console.log('>>>>',{newUserid})
+        });
+        return chai
+          .request(app)
+          .get("/api/users/whoami")
+          .set("Authorization", `Bearer ${authToken}`)
+          .then(data => {
+            const newDate = faker.date.recent();
+            const newOffice = faker.lorem.words();
+            const newGoals = faker.lorem.words();
+            const newOutcome = faker.lorem.words();
+            const newNextgoals = faker.lorem.words();
+            console.log(data.id, ">>>>>>>>>>>>");
+
+            return chai
+              .request(app)
+              .post("/api/visits")
+              .set("Content-Type", "application/json")
+              .set("Authorization", `Bearer ${authToken}`)
+              .send({
+                user: this.id,
+                date: newDate,
+                office: newOffice,
+                goals: newGoals,
+                outcome: newOutcome,
+                nextgoals: newNextgoals
+              });
+          })
+
+          .then(res => {
+            expect(res).to.have.status(201);
+            expect(res).to.be.json;
+            expect(res.body).to.be.a("object");
+            expect(res.body).to.include.keys(
+              "date",
+              "office",
+              "goals",
+              "outcome",
+              "nextgoals"
+            );
+          });
+      });
+    });
+
+    describe("testing my put endpoint", function() {
+      it("should test my put end point", function() {
+        const newDate = faker.date.recent();
+        const newOffice = faker.lorem.words();
+        const newGoals = faker.lorem.words();
+        const newOutcome = faker.lorem.words();
+        const newNextgoals = faker.lorem.words();
+
+        return chai
+          .request(app)
+          .post("/api/visits")
+          .set("Content-Type", "application/json")
+          .send({
+            id: this.id,
+            date: newDate,
+            office: newOffice,
+            goals: newGoals,
+            outcome: newOutcome,
+            nextgoals: newNextgoals
+          });
+        const updatedContent = {
+          newDate: faker.date.recent(),
+          newOffice: faker.lorem.words(),
+          newGoals: faker.lorem.words(),
+          newOutcome: faker.lorem.words(),
+          newNextgoals: aker.lorem.words()
+        };
+
+        return Visit.findOne()
+          .then(note => {
+            return chai
+              .request(app)
+              .put(`/api/visits/${id}`)
+              .send(updatedContent);
+          })
+          .then(res => {
+            expect(res).to.have.status(204);
+            return City.findbyId(updatedContent.id);
+          })
+          .then(post => {
+            expect(post.date).to.equal(updatedContent.date);
+            expect(post.office).to.equal(updatedContent.office);
+            expect(post.goals).to.equal(updatedContent.goals);
+            expect(post.outcome).to.equal(updatedContent.outcome);
+            expect(post.nextgoals).to.equal(updatedContent.nextgoals);
+          });
+      });
+    });
+
+    describe("test the delete endpoint", function() {
+      it("should test my delete endpoint", function() {
+        const newDate = faker.date.recent();
+        const newOffice = faker.lorem.words();
+        const newGoals = faker.lorem.words();
+        const newOutcome = faker.lorem.words();
+        const newNextgoals = faker.lorem.words();
+
+        return chai
+          .request(app)
+          .post("/api/visits")
+          .set("Content-Type", "application/json")
+          .send({
+            id: this.id,
+            date: newDate,
+            office: newOffice,
+            goals: newGoals,
+            outcome: newOutcome,
+            nextgoals: newNextgoals
+          });
+        let post;
+
+        return Visit.findOne()
+          .then(_post => {
+            post = _post;
+            return chai.request(app).delete(`/${id}`);
+          })
+          .then(res => {
+            expect(res).to.have.status(204);
+            return Visit.findById(post.id);
+          })
+          .then(tst => {
+            expect(tst).to.be.null;
+          });
+      });
+    });
   });
 });
