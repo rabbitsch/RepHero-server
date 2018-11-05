@@ -7,12 +7,17 @@ const cors = require("cors");
 const passport = require("passport");
 mongoose.Promise = global.Promise;
 
+// imports the Office model, executes its code but dots not store any ref
+require("./models/office");
+
 const { DATABASE_URL, PORT } = require("./config");
 
+const officesRouter = require("./routers/office");
 const docPoint = require("./routers/doc-endpoint");
 const visitsRouter = require("./routers/visits");
 const userRouter = require("./routers/user-router");
 const authRouter = require("./routers/auth-router");
+const geoRouter = require("./routers/router-geo");
 const { localStrategy, jwtStrategy } = require("./auth/auth-strat");
 
 const app = express();
@@ -27,10 +32,12 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 //My Routers
+app.use("/api", officesRouter);
 app.use("/api", visitsRouter);
 app.use("/doc", docPoint);
 app.use("/api/users", userRouter);
 app.use("/api", authRouter);
+app.use("/geo", geoRouter);
 
 //CORS Middleware
 app.use(function(req, res, next) {

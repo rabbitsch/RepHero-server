@@ -1,10 +1,31 @@
 const router = require("express").Router();
 
+// const Office = require("../models/office");
+
 const Visit = require("../models/visit");
+const jwtAuth = require("passport").authenticate("jwt", {
+  session: false,
+  failureRedirect: "/api/login"
+});
 
 //Get endpoint
 router.get("/visits", (req, res) => {
-  Visit.find()
+  //console.log(req, "this is my req in get visit >>>>>>");
+  //{office:req.params.officeid}
+
+  const filters = {};
+
+  if (req.query.office) {
+    filters.office = req.query.office;
+  }
+
+  if (req.query.user) {
+    filters.user = req.query.user;
+  }
+
+  Visit.find(filters)
+    .populate("office")
+    .populate("user")
     .then(item => res.json(item.map(get => get.serialize())))
     .catch(error => {
       console.log(error);
