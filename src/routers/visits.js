@@ -33,9 +33,19 @@ router.get("/visits", (req, res) => {
     });
 });
 
+// Get Id endpoint
+router.get("/visits/:id", (req, res) => {
+  Visit.findById(req.params.id)
+    .then(post => res.json(post.serialize()))
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ error: "mother of pearl, something went wrong" });
+    });
+});
+
 //Post endpoint
 router.post("/visits", (req, res) => {
-  const keys = ["date", "office", "goals", "outcome", "nextgoals"];
+  const keys = ["date", "office", "goals", "outcome"];
   for (let i = 0; i < keys.length; i++) {
     const field = keys[i];
     if (!field in req.body) {
@@ -49,8 +59,7 @@ router.post("/visits", (req, res) => {
     date: req.body.date,
     office: req.body.office,
     goals: req.body.goals,
-    outcome: req.body.outcome,
-    nextgoals: req.body.nextgoals
+    outcome: req.body.outcome
   })
     .then(payload => res.status(201).json(payload.serialize()))
     .catch(error => {
@@ -79,7 +88,7 @@ router.put("/visits/:id", (req, res) => {
     });
   }
   const updated = {};
-  const updateableFields = ["date", "office", "goals", "outcome", "nextgoals"];
+  const updateableFields = ["date", "office", "goals", "outcome"];
   updatedableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];

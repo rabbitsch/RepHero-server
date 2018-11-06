@@ -11,6 +11,15 @@ router.get("/offices", (req, res) => {
     });
 });
 
+router.get("/offices/:id", (req, res) => {
+  Office.findById(req.params.id)
+    .then(post => res.json(post.serialize()))
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ error: "mother of pearl, something went wrong" });
+    });
+});
+
 router.post("/offices", (req, res) => {
   const requiredKeys = ["title"];
   for (let i = 0; i < requiredKeys.length; i++) {
