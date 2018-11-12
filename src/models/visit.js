@@ -8,22 +8,23 @@ const schema = mongoose.Schema({
   date: { type: String },
   office: { type: mongoose.SchemaTypes.ObjectId, ref: "Office" },
   goals: { type: [String] },
-  outcome: { type: [String] },
-  nextgoals: { type: [String] }
+  outcome: { type: [String] }
 });
 
 schema.methods.serialize = function() {
-  console.log({ o: this.office });
+  console.log({ Date: this.date });
+  console.log({ office: this.office });
   return {
     id: this._id,
     date: this.date,
-    office: this.office ? this.office.serialize() : null,
+    office: this.office,
     goals: this.goals,
-    outcome: this.outcome,
-    nextgoals: this.nextgoals
+    outcome: this.outcome
   };
 };
 
 const Visit = mongoose.model("Visit", schema);
 
 module.exports = Visit;
+
+//? this.office.serialize() : null,

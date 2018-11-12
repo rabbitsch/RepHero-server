@@ -45,6 +45,7 @@ router.get("/visits/:id", (req, res) => {
 
 //Post endpoint
 router.post("/visits", (req, res) => {
+  console.log(req.body, "this is my post endpoint");
   const keys = ["date", "office", "goals", "outcome"];
   for (let i = 0; i < keys.length; i++) {
     const field = keys[i];

@@ -8,8 +8,9 @@ const GEO_BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json";
 const GEOCODE_ID = process.env.GEOCODE_ID;
 
 router.get("/", (req, res) => {
+  //console.log(req.query.name, "Hey here is router geo");
   axios
-    .get(`${GEO_BASE_URL}?address=${req.query.address}`, {
+    .get(`${GEO_BASE_URL}?address=${req.query.name}`, {
       params: {
         key: GEOCODE_ID
       }
