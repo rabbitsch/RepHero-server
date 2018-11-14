@@ -1,4 +1,13 @@
 language: node_js
 node_js: node
 services:
-    - mongodb
+- mongodb
+deploy:
+  app: shrouded-mesa-46549
+  provider: heroku
+  api_key:
+    secure: J3nItDZ6W52gpFyzmPonPl9Ah3WZr3BxjcEeicr1/liawvZgL8aOX3HseMWPuu4HFfpVYRuC1pjPIxK3PqvnhinnyAlGGam4NHUZ8MMB2vl12RLD0ZTa9a0+JzHTh0O7jlJzWB7ovvevA7bfQK8kYXpP5St7Ypy5etTAgQugMbQHz+fntuOOrmOKs1sfqBa3r6M9OsKtD8PL0kd5mUptZKDdVMX2Ucx5+UH7NFKQlXp7odoEmktaBcQCHcDi7kw92ze2gIrRG8Wwj/ac6ixxHVWm0NhRTW4ttSlAhlEZ4HSrr7vEpeyuy6dVJLK1qqGkvOgUHj3SFuyFp5DGGWYU56zKRxKdtEAPGb5om4j2fuCCtvMFexszEJITP2akjhPulFPJ+hWUg9owuhJrMIIFL6HSnR9wj0LxVOp8bufRe31nKeB37nk8V0z5FwD1/ae+F5/iHcLY8Cqi9Pw/llVSDUSlG/WjVEJ6SSyAGgvWhpwLo1f0sYiPkxDIDOU2GX/QYB0rADT74k1eE7DOv1iLVzTvhYPBeMsaKECsMZDm5CSOcADG0Vs5H5jGXjatk+a+6JMH/GCzOTOI5Eu45+GvTvVvWoG7q1zWPMTa6Arf4heOAJfrVYBek4a3hGEB9WrJyU2zuubV2R1W6k0yFrpdgX+9bXkYQDiu2flUP4mUZ7c=
+  app: shrouded-mesa-46549
+  on:
+    repo: rabbitsch/RepHero-server
+    deploy:app:
