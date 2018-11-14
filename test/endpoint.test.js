@@ -27,8 +27,7 @@ function seedingData(
   dateFaker,
   officeFaker,
   goalsFaker,
-  outcomeFaker,
-  nextgoalsFaker
+  outcomeFaker
 ) {
   console.log("seeding DB");
   const seedData = [];
@@ -38,8 +37,7 @@ function seedingData(
       date: faker.address.date(),
       office: faker.lorem.words(),
       goals: faker.lorem.words(),
-      outcome: faker.lorem.words(),
-      nextgoals: faker.lorem.words()
+      outcome: faker.lorem.words()
     });
     return Visit.insertMany(seedData);
   }
@@ -125,8 +123,7 @@ describe("preparing endpoints for tests", function() {
               "date",
               "office",
               "goals",
-              "outcome",
-              "nextgoals"
+              "outcome"
             );
           });
           respPost = res.body[0];
@@ -150,7 +147,7 @@ describe("preparing endpoints for tests", function() {
             const newOffice = faker.lorem.words();
             const newGoals = faker.lorem.words();
             const newOutcome = faker.lorem.words();
-            const newNextgoals = faker.lorem.words();
+
             console.log(data.id, ">>>>>>>>>>>>");
 
             return chai
@@ -163,8 +160,7 @@ describe("preparing endpoints for tests", function() {
                 date: newDate,
                 office: newOffice,
                 goals: newGoals,
-                outcome: newOutcome,
-                nextgoals: newNextgoals
+                outcome: newOutcome
               });
           })
 
@@ -176,8 +172,7 @@ describe("preparing endpoints for tests", function() {
               "date",
               "office",
               "goals",
-              "outcome",
-              "nextgoals"
+              "outcome"
             );
           });
       });
@@ -189,7 +184,6 @@ describe("preparing endpoints for tests", function() {
         const newOffice = faker.lorem.words();
         const newGoals = faker.lorem.words();
         const newOutcome = faker.lorem.words();
-        const newNextgoals = faker.lorem.words();
 
         return chai
           .request(app)
@@ -200,15 +194,13 @@ describe("preparing endpoints for tests", function() {
             date: newDate,
             office: newOffice,
             goals: newGoals,
-            outcome: newOutcome,
-            nextgoals: newNextgoals
+            outcome: newOutcome
           });
         const updatedContent = {
           newDate: faker.date.recent(),
-          newOffice: faker.lorem.words(),
+          newOffice: faker.random.uuid(),
           newGoals: faker.lorem.words(),
-          newOutcome: faker.lorem.words(),
-          newNextgoals: aker.lorem.words()
+          newOutcome: faker.lorem.words()
         };
 
         return Visit.findOne()
@@ -227,7 +219,6 @@ describe("preparing endpoints for tests", function() {
             expect(post.office).to.equal(updatedContent.office);
             expect(post.goals).to.equal(updatedContent.goals);
             expect(post.outcome).to.equal(updatedContent.outcome);
-            expect(post.nextgoals).to.equal(updatedContent.nextgoals);
           });
       });
     });
@@ -235,10 +226,9 @@ describe("preparing endpoints for tests", function() {
     describe("test the delete endpoint", function() {
       it("should test my delete endpoint", function() {
         const newDate = faker.date.recent();
-        const newOffice = faker.lorem.words();
+        const newOffice = faker.random.uuid();
         const newGoals = faker.lorem.words();
         const newOutcome = faker.lorem.words();
-        const newNextgoals = faker.lorem.words();
 
         return chai
           .request(app)
@@ -247,10 +237,9 @@ describe("preparing endpoints for tests", function() {
           .send({
             id: this.id,
             date: newDate,
-            office: newOffice,
+            office: this.id,
             goals: newGoals,
-            outcome: newOutcome,
-            nextgoals: newNextgoals
+            outcome: newOutcome
           });
         let post;
 
