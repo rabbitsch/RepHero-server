@@ -181,7 +181,7 @@ describe("preparing endpoints for tests", function() {
     describe("testing my put endpoint", function() {
       it("should test my put end point", function() {
         const newDate = faker.date.recent();
-        const newOffice = faker.lorem.words();
+        const newOffice = faker.random.uuid();
         const newGoals = faker.lorem.words();
         const newOutcome = faker.lorem.words();
 
@@ -192,13 +192,13 @@ describe("preparing endpoints for tests", function() {
           .send({
             id: this.id,
             date: newDate,
-            office: newOffice,
+
             goals: newGoals,
             outcome: newOutcome
           });
         const updatedContent = {
           newDate: faker.date.recent(),
-          newOffice: faker.random.uuid(),
+
           newGoals: faker.lorem.words(),
           newOutcome: faker.lorem.words()
         };
